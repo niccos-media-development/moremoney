@@ -16,7 +16,27 @@ Supported variables
 * has_content_below_gallery: if true, the product has extra information show below the gallery
 * context: the context of the product info. Can be "main_product", "featured_product" or "quick_buy"
 {%- endcomment -%}
+{% style %}
 
+.sold-out {
+    position: relative;
+    opacity: 0.5;
+    pointer-events: none; 
+}
+
+.sold-out::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(to bottom right, transparent calc(50% - .5px), var(--swatch-disabled-strike-color) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px));
+  border-style: solid;
+  border-width: 0;
+  border-color: rgb(var(--border-color));
+}
+{% endstyle %}
 <safe-sticky class="product-info {% if center_basic_info %}product-info--center{% endif %}">
   <div class="product-info__block-list">
     {%- liquid
@@ -631,17 +651,20 @@ Supported variables
                 </div>
             </div>
               <div class="cust-product-options">
-                 <a href="{{ product.url }}" class="cust-options thumbnail-swatch  {% if product.url == request.path %}active{% endif %}">
-                   {{- product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
+                  <a href="{{ product.url }}" class="cust-options thumbnail-swatch {% unless product.selected_or_first_available_variant.available %}sold-out{% endunless %} {% if product.url == request.path %}active{% endif %}" 
+                    data-available="{{ product.selected_or_first_available_variant.available }}">
+                      {{- product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
                   </a>
-                {% for option in product.metafields.custom.product_options.value %}
-                  {% assign option_product = option | product %}
-                  {% if option_product != blank %}
-                      <a href="{{ option_product.url }}" class="{{ request.path }} cust-options thumbnail-swatch  {% if option_product.url == request.path %}active{% endif %}">
-                         {{- option_product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
-                      </a>
-                  {% endif %}
-                {% endfor %}
+
+                  {% for option in product.metafields.custom.product_options.value %}
+                      {% assign option_product = option | product %}
+                      {% if option_product != blank %}
+                          <a href="{{ option_product.url }}" class="cust-options thumbnail-swatch {% unless option_product.selected_or_first_available_variant.available %}sold-out{% endunless %} {% if option_product.url == request.path %}active{% endif %}" 
+                            data-available="{{ option_product.selected_or_first_available_variant.available }}">
+                              {{- option_product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
+                          </a>
+                      {% endif %}
+                  {% endfor %}
               </div>
             </div>
             {% endif %}
@@ -724,3 +747,15 @@ Supported variables
     {%- endform -%}
   {%- endunless -%}
 </safe-sticky>
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".cust-options.thumbnail-swatch").forEach(function (el) {
+            let isAvailable = el.getAttribute("data-available") === "true";
+            if (!isAvailable) {
+                el.classList.add("sold-out"); 
+            }
+        });
+  });
+
+</script>
