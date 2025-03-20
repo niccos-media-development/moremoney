@@ -1,0 +1,122 @@
+<!doctype html>
+
+<html lang="{{ request.locale.iso_code }}" dir="{% render 'direction' %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, maximum-scale=5.0">
+
+    <title>{% if page_title == blank %}{{ shop.name }}{% else %}{{ page_title }}{% if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif %}{% endif %}</title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 96 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180 }}">
+    {%- endif -%}
+
+    {%- comment -%}Few prefetch to increase performance on commonly used third-parties{%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+    {%- unless settings.heading_font.system? -%}
+      <link rel="preload" href="{{ settings.heading_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- unless settings.text_font.system? -%}
+      <link rel="preload" href="{{ settings.text_font | font_url }}" as="font" type="font/woff2" crossorigin>
+    {%- endunless -%}
+
+    {%- render 'social-meta-tags' -%}
+    {%- render 'microdata-schema' -%}
+    {%- render 'css-variables' -%}
+    {%- render 'js-variables' -%}
+
+    {%- if request.page_type == 'gift_card' -%}
+      <script src="{{ 'vendor/qrcode.js' | shopify_asset_url }}" defer></script>
+    {%- endif -%}
+
+    <!-- adtribute.io -->
+<script>
+(()=>{if(window._adbs&&window._adbs.scriptLoaded)return;var e,t;window._adbq=window._adbq||[],window._adbs=window._adbs||{organizationId:"cm15ac4cv0000uyemudppi2ou",subDomain:"moremoneymorelove",environment:"prod"},window._adbs.topLevelDomain=(e=window.location.host.split("."),t=e.slice(-2).join("."),["com.br","co.uk","org.uk","gov.uk","edu.au","ac.uk","net.au","com.au","gov.au","mil.br"].includes(t)?e.slice(-3).join("."):t);let o=`https://${window._adbs.subDomain}.${window._adbs.topLevelDomain}/${window._adbs.organizationId}/client.js`,r=`https://collector.api.adtribute.io/${window._adbs.organizationId}/client.js`,i="_adbq",a=(()=>{var e="__storage_test__";try{return localStorage.setItem(e,e),localStorage.removeItem(e),!0}catch(e){return!1}})(),n=(e,t)=>{try{document.cookie=`${e}=${t}; expires=${new Date((new Date).getTime()+63072e6).toUTCString()}; domain=.${window._adbs.topLevelDomain}; path=/; secure;`}catch(e){console.error(e)}},d=()=>{let e;return(e=(e=a?localStorage.getItem(i):e)||(e=>{try{var o=e+"=",r=document.cookie.split(";");for(let t=0;t<r.length;t++){let e=r[t];for(;" "===e.charAt(0);)e=e.substring(1);if(0===e.indexOf(o))return e.substring(o.length,e.length)}}catch(e){console.error(e)}})(i))?JSON.parse(e):[]},s=e=>{a?localStorage.setItem(i,JSON.stringify(e)):n(i,JSON.stringify(e))},c=()=>{var e=document.createElement("script"),t=(e.type="text/javascript",e.src=window._adbs.scriptSrc,e.async=!0,e.onerror=()=>{var e;window._adbs.scriptSrc===o?(window._adbs.scriptSrc=r,c()):(w++,e=1e3*Math.pow(2,w),setTimeout(()=>{window._adbs.scriptSrc=o,c()},e))},document.getElementsByTagName("script")[0]);t.parentNode.insertBefore(e,t)},w=(d().forEach(e=>window._adbq.push(e)),window._adbq.push(["track","web_event_pageview",{timestamp:(new Date).toISOString(),page_title:document.title,page_url:window.location.href,referrer_url:document.referrer}]),Object.defineProperty(window._adbq,"push",{enumerable:!0,configurable:!0,writable:!0,value(...r){for(let e=0,t=this.length,o=r.length;e<o;e++,t++)i=this[t]=r[e],a=void 0,(a=d()).push(i),s(a);var i,a}}),s(window._adbq),0);window._adbs.scriptSrc=o,c(),window._adbs.scriptLoaded=!0})();
+</script>
+<!-- adtribute.io -->
+
+    <script>
+      if (!(HTMLScriptElement.supports && HTMLScriptElement.supports('importmap'))) {
+        const importMapPolyfill = document.createElement('script');
+        importMapPolyfill.async = true;
+        importMapPolyfill.src = "{{ 'es-module-shims.min.js' | asset_url }}";
+
+        document.head.appendChild(importMapPolyfill);
+      }
+    </script>
+
+    <script type="importmap">
+      {%- comment -%}On Safari 16.3 and lower, a polyfill is used to load importmap{%- endcomment -%}
+      {
+        "imports": {
+          "vendor": "{{ 'vendor.min.js' | asset_url }}",
+          "theme": "{{ 'theme.js' | asset_url }}",
+          "niccos": "{{ 'niccos.js' | asset_url }}",
+          "photoswipe": "{{ 'photoswipe.min.js' | asset_url }}"
+        }
+      }
+    </script>
+
+    <script type="module" src="{{ 'vendor.min.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'theme.js' | asset_url }}"></script>
+    <script type="module" src="{{ 'niccos.js' | asset_url }}"></script>
+
+    {{ content_for_header }}
+
+    {{- 'theme.css' | asset_url | stylesheet_tag: preload: true -}}
+     {{- 'niccos.css' | asset_url | stylesheet_tag: preload: true -}}
+  </head>
+
+  {% liquid
+    assign features_class = ''
+  
+    if settings.show_button_transition
+      assign features_class = features_class | append: 'features--button-transition '
+    endif
+  
+    if settings.show_image_zoom_on_hover
+      assign features_class = features_class | append: 'features--zoom-image '
+    endif
+  %}
+
+  <body class="{{ features_class }} color-scheme color-scheme--{{ settings.default_color_scheme.id }}">
+    {%- render 'shadow-dom-templates' -%}
+
+    <loading-bar class="loading-bar" aria-hidden="true"></loading-bar>
+    <a href="#main" allow-hash-change class="skip-to-content sr-only">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <span id="header-scroll-tracker" style="position: absolute; width: 1px; height: 1px; top: var(--header-scroll-tracker-offset, 10px); left: 0;">
+      {%- comment -%}
+        This allows our theme to track when the user has scrolled a given amount of pixels, without relying on a global scroll listener. This helps
+        to improve performance and reduce reflows.
+      {%- endcomment -%}
+    </span>
+
+    {%- if request.page_type != 'password' -%}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+    {%- endif -%}
+
+    <main id="main" class="anchor">
+      {{ content_for_layout }}
+
+      {%- comment -%}
+      IMPLEMENTATION NOTE: For best semantics, having the footer group outside the main would be slightly better, but
+        moving it inside the main allows to have all the sections (including sections inside the footer group) to be
+        consecutive, and hence having a cleaner margin collapsing management.
+      {%- endcomment -%}
+      {%- if request.page_type != 'password' -%}
+        {%- sections 'footer-group' -%}
+      {%- endif -%}
+    </main>
+  </body>
+</html>

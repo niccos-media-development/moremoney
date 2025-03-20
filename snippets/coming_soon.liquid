@@ -1,0 +1,44 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+const variantInput = document.querySelector('input[name="id"]'); // Hidden input
+    const comingSoonMessage = document.getElementById("cust-coming-soon-message");
+    const atcButtonContainer = document.querySelector('[data-block-id="buy_buttons"]');
+
+    if (!variantInput || !comingSoonMessage || !atcButtonContainer) return;
+
+    function checkComingSoon(variantId) {
+        fetch(`/products/{{ product.handle }}.json`)
+            .then(response => response.json())
+            .then(data => {
+                const variants = data.product.variants;
+                const selectedVariant = variants.find(v => v.id == variantId);
+
+                if (selectedVariant && selectedVariant.metafields?.custom?.coming_soon) {
+                    if (selectedVariant.metafields.custom.coming_soon === true) {
+                        comingSoonMessage.style.display = "block";
+                        atcButtonContainer.style.display = "none";
+                    } else {
+                        comingSoonMessage.style.display = "none";
+                        atcButtonContainer.style.display = "block";
+                    }
+                } else {
+                    // Default: Show Add to Cart
+                    comingSoonMessage.style.display = "none";
+                    atcButtonContainer.style.display = "block";
+                }
+            })
+            .catch(error => console.error("Error fetching product data:", error));
+    }
+
+    // Observe changes in the hidden input's value
+    const observer = new MutationObserver(() => {
+        checkComingSoon(variantInput.value);
+      console.log('check',variantInput.value)
+    });
+
+    observer.observe(variantInput, { attributes: true, attributeFilter: ["value"] });
+
+    // Initial check on page load
+    checkComingSoon(variantInput.value);
+});
+</script>

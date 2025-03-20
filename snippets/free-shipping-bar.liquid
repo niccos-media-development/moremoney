@@ -1,0 +1,47 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+FREE SHIPPING BAR
+----------------------------------------------------------------------------------------------------------------------
+
+Renders the free shipping bar component. It is used on cart page and cart drawer to render the remaining amount before
+being eligible for free shipping.
+{%- endcomment -%}
+
+{%- liquid
+  assign calculated_total_price = 0
+
+  for line_item in cart.items
+    if line_item.requires_shipping
+      assign calculated_total_price = calculated_total_price | plus: line_item.final_line_price
+    endif
+  endfor
+
+  # We have to remove the cart level discount from the calculated amount
+
+  assign total_cart_discount = 0
+
+  for discount_application in cart.cart_level_discount_applications
+    assign total_cart_discount = total_cart_discount | plus: discount_application.total_allocated_amount
+  endfor
+
+  assign calculated_total_price = calculated_total_price | minus: total_cart_discount
+-%}
+
+{%- if cart.requires_shipping -%}
+  <free-shipping-bar class="free-shipping-bar" threshold="{{ settings.cart_free_shipping_threshold }}" total-price="{{ calculated_total_price }}" reached-message="{{ 'cart.free_shipping_bar.limit_reached_html' | t | escape }}" unreached-message="{{ 'cart.free_shipping_bar.limit_unreached_html' | t | escape }}">
+    {%- comment -%}The span below is the placeholder where the content will be inserted in JS{%- endcomment -%}
+    <div class="shippingmessage_cust_with_icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none">
+        <path d="M8.5 17.0714L16 13.0536V5.01786L8.5 1L1 5.01786V13.0536L8.5 17.0714ZM8.5 17.0714V9.53795M8.5 9.53795L1.46354 5.52009M8.5 9.53795L15.5365 5.52009" stroke="black" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="text-subdued">&nbsp;</span>
+    </div>
+     {%- assign calculated_total_price = cart.total_price | divided_by: 100 -%}
+  {%- assign free_shipping_threshold = settings.cart_free_shipping_threshold -%}
+  {%- assign progress_percentage = calculated_total_price | times: 100 | divided_by: free_shipping_threshold -%}
+  {%- assign progress_percentage = progress_percentage | at_most: 100 -%}
+    <div class="cust-free-shipping-progress-wrapper">
+      <div class="cust-free-shipping-progress-bar" style="width: {{ progress_percentage }}%;"></div>
+    </div>
+  </free-shipping-bar>
+{%- endif -%}

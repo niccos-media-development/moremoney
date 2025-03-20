@@ -1,0 +1,463 @@
+{%- if section.blocks.size > 0 -%}
+  {%- comment -%}
+  ------------------------------------------------------------------------------------------------------------------------
+  CSS
+  ------------------------------------------------------------------------------------------------------------------------
+  {%- endcomment -%}
+
+  <style>
+    #shopify-section-{{ section.id }} {
+      {%- if section.settings.stack_collections -%}
+        --collection-list-items-per-row: {{ section.settings.blocks_per_row_mobile | times: 1 }};
+      {%- else -%}
+        /* --collection-list-item-size: 84vw; */
+        --collection-list-items-per-row: {{ section.settings.blocks_per_row_mobile | times: 1 }};
+      {%- endif -%}
+
+      {%- if section.settings.space_items -%}
+        --collection-list-gap: 1.5rem;
+      {%- endif -%}
+    }
+
+    @media screen and (min-width: 700px) {
+      #shopify-section-{{ section.id }} {
+        {%- if section.settings.stack_blocks -%}
+          --collection-list-items-per-row: {{ 2 | at_most: section.settings.blocks_per_row_desktop }};
+        {%- else -%}
+          --collection-list-item-size: 62vw;
+        {%- endif -%}
+      }
+    }
+
+    @media screen and (min-width: 1150px) {
+      #shopify-section-{{ section.id }} {
+        --collection-list-item-size: unset;
+        --collection-list-items-per-row: {{ section.settings.blocks_per_row_desktop }};
+
+        {%- if section.settings.space_items -%}
+          --collection-list-gap: 1.875rem;
+        {%- endif -%}
+      }
+    }
+  </style>
+
+  {%- comment -%}
+  ------------------------------------------------------------------------------------------------------------------------
+  LIQUID
+  ------------------------------------------------------------------------------------------------------------------------
+  {%- endcomment -%}
+
+  {%- assign remove_vertical_spacing = false -%}
+
+  {%- if section.settings.subheading == blank and section.settings.title == blank and section.settings.content == blank -%}
+    {%- assign reduce_vertical_spacing = true -%}
+
+    {%- unless section.settings.space_items -%}
+      {%- assign remove_vertical_spacing = true -%}
+    {%- endunless -%}
+  {%- endif -%}
+
+  {%- assign color_scheme_hash = section.settings.color_scheme.settings.background_gradient | default: section.settings.color_scheme.settings.background | md5 -%}
+
+  <div class="{% unless remove_vertical_spacing %}section-spacing {% if reduce_vertical_spacing %}section-spacing--tight{% endif %}{% endunless %} color-scheme color-scheme--{{ section.settings.color_scheme.id }} color-scheme--bg-{{ color_scheme_hash }} {% if section.settings.separate_section_with_border %}bordered-section{% endif %}">
+    <div class="{% if section.settings.space_items %}container{% endif %}">
+      <div class="section-stack gap-8">
+        {% capture view_all_button %}
+          {% if section.settings.view_text != blank %}
+          <div class="justify-self-center cust_link_btn">
+              <a class="button" href="{{ section.settings.view_link }}">{{ section.settings.view_text }}</a>
+          </div>
+            {% endif %}
+          {% endcapture %}
+        {%- render 'section-header', subheading: section.settings.subheading, heading: section.settings.title, content: section.settings.content, text_alignment: 'left', text_alignment: 'start' , custom_class: 'h-stack w-full justify-between' , view_all_button: view_all_button -%}
+
+        {% capture block_list %}
+          {%- for block in section.blocks -%}
+            {%- assign block = block.settings.block -%}
+            {%- assign block_url = block.settings.button_link | default: block.url -%}
+
+            {%- capture block_card_info -%}
+              <div class="collection-card__content color-scheme color-scheme--{{ block.settings.color_scheme.id }} prose prose--tight {{ block.settings.content_position }}">
+                {%- if block.settings.subheading != blank -%}
+                  <p class="h6">{{- block.settings.subheading -}}</p>
+                {%- endif -%}
+
+                {%- if block.settings.title != blank -%}
+                  <p class="h3">{{- block.settings.title -}}</p>
+                {%- endif -%}
+
+                {%- if block.settings.button_text != blank -%}
+                  {%- render 'button', type: 'button', content: block.settings.button_text, style: block.settings.button_style -%}
+                {%- endif -%}
+              </div>
+            {%- endcapture -%}
+
+            {%- capture block_card_content -%}
+              <div class="content-over-media content-over-media--{{ section.settings.image_size }}" style="--content-over-media-overlay: {{ block.settings.overlay_color.rgb }} / {{ block.settings.overlay_opacity | divided_by: 100.0 }};">
+                {%- assign image = block.settings.image -%}
+                {%- capture sizes -%}(max-width: 699px) 100vw, {% if block.settings.expand_block %}100vw{% else %}(max-width: 1149px) {{ 100 | divided_by: section.settings.blocks_per_row_desktop | at_least: 50 }}vw, {{ 100 | divided_by: section.settings.blocks_per_row_desktop }}vw{% endif %}{%- endcapture -%}
+
+                {%- if image != blank -%}
+                  {{- image | image_url: width: image.width | image_tag: sizes: sizes, widths: '200,300,400,500,600,800,1000,1200,1400,1600,1800,2000,2200,2400', class: 'zoom-image group-hover:zoom', draggable: 'false' -}}
+                {%- else -%}
+                  {%- capture block_placeholder -%}{%- cycle 'collection-1', 'collection-2', 'collection-3' -%}{%- endcapture -%}
+                  {{- block_placeholder | placeholder_svg_tag: 'placeholder zoom-image group-hover:zoom' | replace: '<svg', '<svg preserveAspectRatio="xMinYMin slice"' -}}
+                {%- endif -%}
+
+                {%- unless section.settings.show_text_outside -%}
+                  {{- block_card_info -}}
+                {%- endunless -%}
+              </div>
+
+              {%- if section.settings.show_text_outside -%}
+                {{- block_card_info -}}
+              {%- endif -%}
+            {%- endcapture -%}
+
+            {%- if block_url != blank -%}
+              <a href="{{ block_url }}" class="collection-card {% if block.settings.expand_block %}grow{% endif %} {% unless section.settings.stack_blocks %}shrink-0 snap-center{% endunless %} {% if forloop.first %}is-selected{% endif %} group" {{ block.shopify_attributes }}>
+                {{- block_card_content -}}
+              </a>
+            {%- else -%}
+              <div class="collection-card {% if block.settings.expand_block %}grow{% endif %} {% unless section.settings.stack_blocks %}shrink-0 snap-center{% endunless %} {% if forloop.first %}is-selected{% endif %} group" {{ block.shopify_attributes }}>
+                {{- block_card_content -}}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {% endcapture %}
+
+        {% if section.settings.stack_blocks or section.blocks.size <= 1 %}
+          <div class="collection-list {% if section.settings.show_text_outside %}collection-list--text-outside{% endif %} wrap">
+            {{ block_list }}
+          </div>
+        {% else %}
+          <div class="floating-controls-container floating-controls-container--inside floating-controls-container--on-hover">
+            {%- assign carousel_id = 'carousel-' | append: section.id -%}
+             {% unless section.settings.hide_sliderbuttons %}
+            <carousel-prev-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}">
+              <button type="button" class="prev-next-button prev-next-button--prev circle-button circle-button--lg hover:animate-icon-inline" disabled>
+                <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
+                {%- render 'icon' with 'arrow-left', direction_aware: true -%}
+              </button>
+            </carousel-prev-button>
+          {% endunless %}
+            <scroll-carousel id="{{ carousel_id }}" group-cells allow-drag class="collection-list scroll-area {% if section.settings.show_text_outside %}collection-list--text-outside{% endif %} bleed lg:unbleed">
+              {{ block_list }}
+            </scroll-carousel>
+ {% unless section.settings.hide_sliderbuttons %}
+            <carousel-next-button class="floating-controls-container__control" aria-controls="{{ carousel_id }}">
+              <button type="button" class="prev-next-button prev-next-button--next circle-button circle-button--lg hover:animate-icon-inline">
+                <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
+                {%- render 'icon' with 'arrow-right', direction_aware: true -%}
+              </button>
+            </carousel-next-button>
+            {% endunless %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Niccos - Feature Blocks",
+  "class": "shopify-section--niccos-collection-list",
+  "tag": "section",
+  "disabled_on": {
+    "templates": ["password"],
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:global.colors.scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "separate_section_with_border",
+      "label": "t:global.section.separate_section_with_border",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "t:global.image.size",
+      "info": "t:global.image.ratio_avoid_cropping_info",
+      "options": [
+        {
+          "value": "auto",
+          "label": "t:global.sizes.original_image_ratio"
+        },
+        {
+          "value": "xs",
+          "label": "t:global.sizes.x_small"
+        },
+        {
+          "value": "sm",
+          "label": "t:global.sizes.small"
+        },
+        {
+          "value": "md",
+          "label": "t:global.sizes.medium"
+        },
+        {
+          "value": "lg",
+          "label": "t:global.sizes.large"
+        }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text_outside",
+      "label": "Show text Out Side the block",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "space_items",
+      "label": "t:sections.collection_list.space_items",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_blocks",
+      "label": "Stack Block",
+      "default": true
+    },
+      {
+      "type": "checkbox",
+      "id": "hide_sliderbuttons",
+      "label": "Hide Slider Buttons",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "blocks_per_row_mobile",
+      "label": "Blocks per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "1.25",
+          "label": "1.25"
+        },
+        {
+          "value": "1.5",
+          "label": "1.5"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "2.5",
+          "label": "2.5"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "blocks_per_row_desktop",
+      "min": 1,
+      "max": 7,
+      "label": "Blocks per row (desktop)",
+      "step": 0.5,
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "t:global.section.header_category"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "t:global.text.subheading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "t:global.text.heading"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "t:global.text.content"
+    },
+    {
+      "type": "text",
+      "id": "view_text",
+      "label": "View Button Text"
+    },
+    {
+      "type": "url",
+      "id": "view_link",
+      "label": "View Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Feature Block",
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:global.colors.scheme",
+          "default": "scheme-4"
+        },
+        {
+          "type": "url",
+          "id": "block",
+          "label": "Link to block"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:global.image.image",
+          "info": "t:sections.collection_list.blocks.collection.image_size_recommendation"
+        },
+        {
+          "type": "checkbox",
+          "id": "expand_block",
+          "label": "Expand Block to fill row",
+          "info": "Ignored when Blocks do not stack.",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "t:global.position.content_position",
+          "options": [
+            {
+              "value": "place-self-start text-start",
+              "label": "t:global.position.top_left"
+            },
+            {
+              "value": "place-self-start-center text-center",
+              "label": "t:global.position.top_center"
+            },
+            {
+              "value": "place-self-start-end text-end",
+              "label": "t:global.position.top_right"
+            },
+            {
+              "value": "place-self-center-start text-start",
+              "label": "t:global.position.middle_left"
+            },
+            {
+              "value": "place-self-center text-center",
+              "label": "t:global.position.middle_center"
+            },
+            {
+              "value": "place-self-center-end text-end",
+              "label": "t:global.position.middle_right"
+            },
+            {
+              "value": "place-self-end-start text-start",
+              "label": "t:global.position.bottom_left"
+            },
+            {
+              "value": "place-self-end-center text-center",
+              "label": "t:global.position.bottom_center"
+            },
+            {
+              "value": "place-self-end text-end",
+              "label": "t:global.position.bottom_right"
+            }
+          ],
+          "default": "place-self-end-start text-start"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "subheading",
+          "label": "t:global.text.subheading"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "t:global.text.heading"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:global.text.button_text",
+          "default": "View products"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:global.text.button_link",
+          "info": "Default Block Url"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "t:global.text.button_style",
+          "options": [
+            {
+              "value": "outline",
+              "label": "t:global.text.link_style_options.outline"
+            },
+            {
+              "value": "solid",
+              "label": "t:global.text.link_style_options.solid"
+            },
+            {
+              "value": "link",
+              "label": "t:global.text.link_style_options.link"
+            }
+          ],
+          "default": "solid"
+        },
+        {
+          "type": "header",
+          "content": "t:global.colors.category"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "t:global.colors.overlay_color",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "t:global.colors.overlay_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Niccos - Feature Blocks",
+      "blocks": [
+        {
+          "type": "block"
+        },
+        {
+          "type": "block"
+        },
+        {
+          "type": "block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

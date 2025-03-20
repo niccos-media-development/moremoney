@@ -1,0 +1,30 @@
+{% if product.metafields.custom.get_inspired.value != blank %}
+<h2 class="h2">get inspired</h2>
+<div class="get_inspired color-scheme color-scheme--scheme-1 color-scheme--bg-e76edc9112568440ac967db771ae9a1f ">
+    <div class="">
+      <div class="section-stack gap-8">
+        <div class="floating-controls-container floating-controls-container--inside floating-controls-container--on-hover">
+            <scroll-carousel id="carousel-template--24476814213507__niccos_block_list_B3XhAg" group-cells="" allow-drag="" class="collection-list scroll-area bleed lg:unbleed is-scrollable">
+              {% for image in product.metafields.custom.get_inspired.value %}
+                <div class="collection-card shrink-0 snap-center group">
+                  <div class="content-over-media content-over-media--auto" style="--content-over-media-overlay: 0 0 0 / 0.0;">
+                    <img 
+                      src="{{ image | img_url: '261x400' }}" 
+                      alt="{{ image.alt | escape }}" 
+                      srcset="{{ image | img_url: '200x' }} 200w, {{ image | img_url: '261x' }} 261w" 
+                      width="261" 
+                      height="400" 
+                      sizes="(max-width: 699px) 100vw, (max-width: 1149px) 50vw, 14vw" 
+                      class="zoom-image group-hover:zoom" 
+                      draggable="false"
+                    >
+                    <div class="collection-card__content color-scheme color-scheme--scheme-4 prose prose--tight place-self-end-start text-start"></div>
+                  </div>
+                </div>
+              {% endfor %}
+            </scroll-carousel>
+          </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}

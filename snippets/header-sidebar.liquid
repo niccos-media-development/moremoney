@@ -1,0 +1,231 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+HEADER SIDEBAR COMPONENT
+----------------------------------------------------------------------------------------------------------------------
+
+This snippet the navigation sidebar for the header. It is used for both the mobile menu and for the desktop menu when
+the merchant configures the drawer mode.
+
+********************************************
+Supported variables
+********************************************
+
+* menu: the menu to render
+* color_scheme: the color scheme to use for the sidebar
+* show_dividers: whether dividers are shown for the collapsible
+* open_second_level_menus: if true, second level dropdown are open by default
+{%- endcomment -%}
+
+{%- comment -%}
+IMPLEMENTATION NOTE: while being a drawer, the sidebar has a completely different structure for the content. We are
+therefore using a different structure for the Shadow DOM template
+{%- endcomment -%}
+<template id="header-sidebar-template">
+  <div part="base">
+    <div part="overlay"></div>
+
+    <div part="content">
+      <header part="header">
+        <dialog-close-button class="contents">
+          <button type="button" part="close-button tap-area" aria-label="{{ 'general.accessibility.close' | t | escape }}">
+            {%- render 'icon' with 'close', width: 16 -%}
+          </button>
+        </dialog-close-button>
+      </header>
+
+      <div part="panel-list">
+        <slot name="main-panel"></slot>
+
+        {%- if menu.levels > 0 -%}
+          <slot name="collapsible-panel"></slot>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</template>
+
+<header-sidebar id="sidebar-menu" class="header-sidebar drawer drawer--sm color-scheme color-scheme--{{ color_scheme.id }}" template="header-sidebar-template" open-from="left">
+  {%- comment -%}We are using a Shadow DOM where each panel has a slot, so we can directly render each level individually{%- endcomment -%}
+
+  {%- comment -%}Panel 1 is the first level{%- endcomment -%}
+  <div class="header-sidebar__main-panel" slot="main-panel">
+    <div class="header-sidebar__scroller custom_menudside_list">
+      <ul class="header-sidebar__linklist {% if show_dividers %}divide-y{% endif %} unstyled-list" role="list">
+        {%- for link in menu.links -%}
+          <li class="sub-link-item {% if show_dividers %}border-b border-current/10{% endif %}">
+            {%- if link.links.size > 0 -%}
+              <button type="button" class="{{ link.title | handleize }} header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}" aria-controls="header-panel-{{ forloop.index }}" aria-expanded="false">
+                {{- link.title -}}
+                {%- render 'icon' with 'chevron-right', width: 12, direction_aware: true -%}
+              </button>
+            {%- else -%}
+              <a href="{{ link.url }}" class="{{ link.title | handleize }} header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}">
+                {{- link.title -}}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+       {% if section.settings.product_list != blank %}
+        <div class="cust-product-list">
+          {% for product in section.settings.product_list %}
+            <div class="cust-product-item">
+              <a href="{{ product.url }}">
+                <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+                <h3 class="cust-product-title">{{ product.title }}</h3>
+                <p class="cust-product-price">{{ product.price | money }}</p>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {%- liquid
+      if section.settings.show_country_selector and localization.available_countries.size > 1
+        assign show_country_selector = true
+      endif
+
+      if section.settings.show_locale_selector and localization.available_languages.size > 1
+        assign show_locale_selector = true
+      endif
+    -%}
+
+    {%- if shop.customer_accounts_enabled or show_country_selector or show_locale_selector -%}
+      <div class="header-sidebar__footer">
+
+      <div class="header-sidebar__footer_acc">
+            <a href="/pages/swym-wishlist?">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+                <path d="M9.54845 1.28069C9.73316 0.906435 10.2668 0.906436 10.4515 1.28069L12.8426 6.12551C12.916 6.27413 13.0577 6.37714 13.2217 6.40097L18.5683 7.17787C18.9813 7.23788 19.1463 7.74544 18.8474 8.03676L14.9786 11.8079C14.8599 11.9236 14.8057 12.0903 14.8338 12.2536L15.7471 17.5786C15.8176 17.9899 15.3859 18.3036 15.0164 18.1094L10.2343 15.5953C10.0876 15.5182 9.91238 15.5182 9.76568 15.5953L4.98356 18.1094C4.61415 18.3036 4.18239 17.9899 4.25294 17.5786L5.16625 12.2536C5.19426 12.0903 5.14011 11.9236 5.02143 11.8079L1.15262 8.03676C0.853752 7.74544 1.01867 7.23788 1.43169 7.17787L6.77826 6.40097C6.94227 6.37714 7.08405 6.27413 7.15739 6.12551L9.54845 1.28069Z" stroke="black" stroke-linejoin="round"/>
+              </svg>
+               <span>Favoriten</span>
+            </a>
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="text-with-icon smallcaps sm:hidden">
+            {%- render 'icon' with 'account', width: 20 -%}
+            
+            {%- if customer -%}
+              {{- 'header.general.account' | t -}}
+            {%- else -%}
+              {{- 'header.general.login' | t -}}
+            {%- endif -%}
+          </a>
+      </div>
+        {%- if show_country_selector or show_locale_selector -%}
+          <div class="localization-selectors">
+            {%- if show_country_selector -%}
+              {%- render 'localization-selector', type: 'country', placement: 'top-start', show_country_name: section.settings.show_country_name, show_country_flag: section.settings.show_country_flag, id_prefix: 'header-sidebar' -%}
+            {%- endif -%}
+
+            {%- if show_country_selector and show_locale_selector -%}
+              <span class="localization-selectors__separator" aria-hidden="true"></span>
+            {%- endif -%}
+
+            {%- if show_locale_selector -%}
+              {%- render 'localization-selector', type: 'locale', placement: 'top-start', id_prefix: 'header-sidebar' -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%}Panel 2 holds all the second levels{%- endcomment -%}
+  {%- if menu.levels > 0 -%}
+    <header-sidebar-collapsible-panel class="header-sidebar__collapsible-panel" slot="collapsible-panel">
+      <div class="header-sidebar__scroller">
+        {%- for link in menu.links -%}
+          {%- if link.links.size > 0 -%}
+            <div id="header-panel-{{ forloop.index }}" class="header-sidebar__sub-panel" hidden>
+              <button type="button" class="{{ link.title | handleize }} header-sidebar__back-button link-faded {% if show_dividers %}is-divided{% endif %} text-with-icon {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %} md:hidden" data-action="close-panel">
+                {%- render 'icon' with 'chevron-left', width: 12, direction_aware: true -%}
+                {{- link.title -}}
+              </button>
+
+              <ul class="header-sidebar__linklist {% if show_dividers %}divide-y{% endif %} unstyled-list" role="list">
+                <!-- First Level Parent Link -->
+                <li class="sub-link-item {% if show_dividers %}border-b border-current/10{% endif %}">
+                  <a href="{{ link.url }}" class="{{ link.title | handleize }} header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}">
+                    {{- link.title -}}
+                  </a>
+                </li>
+                
+                {%- for sub_link in link.links -%}
+                  <li class="sub-link-item {% if show_dividers %}border-b border-current/10{% endif %}">
+                    {%- if sub_link.links.size > 0 -%}
+                      <accordion-disclosure>
+                        <details class="accordion__disclosure group" {% if open_second_level_menus %}open{% endif %}>
+                          <summary class="header-sidebar__linklist-button {{ sub_link.title | handleize }} {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}">
+                            {{- sub_link.title -}}
+                            <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+                          </summary>
+
+                          <div class="header-sidebar__nested-linklist">
+                            <!-- Second Level Parent Link -->
+                            <a href="{{ sub_link.url }}" class="link-faded-reverse {{ sub_link.title | handleize }}">{{ sub_link.title }}</a>
+                            
+                            {%- for sub_sub_link in sub_link.links -%}
+                              {%- if sub_sub_link.links.size > 0 -%}
+                                <accordion-disclosure>
+                                  <details class="accordion__disclosure group">
+                                    <summary class="link-faded-reverse {{ sub_sub_link.title | handleize }}">
+                                      {{- sub_sub_link.title -}}
+                                      <span class="animated-plus group-expanded:rotate" aria-hidden="true"></span>
+                                    </summary>
+                                    <div class="header-sidebar__nested-linklist">
+                                      <!-- Third Level Parent Link -->
+                                      <a href="{{ sub_sub_link.url }}" class="link-faded-reverse {{ sub_sub_link.title | handleize }}">{{ sub_sub_link.title }}</a>
+                                      
+                                      {%- for sub_sub_sub_link in sub_sub_link.links -%}
+                                        <a href="{{ sub_sub_sub_link.url }}" class="link-faded-reverse {{ sub_sub_sub_link.title | handleize }}">{{ sub_sub_sub_link.title }}</a>
+                                      {%- endfor -%}
+                                    </div>
+                                  </details>
+                                </accordion-disclosure>
+                              {%- else -%}
+                                <a href="{{ sub_sub_link.url }}" class="{{ sub_sub_link.title | handleize }} link-faded-reverse">{{ sub_sub_link.title }}</a>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </div>
+                        </details>
+                      </accordion-disclosure>
+                    {%- else -%}
+                      <a href="{{ sub_link.url }}" class="{{ sub_link.title | handleize }} header-sidebar__linklist-button {% if section.settings.sidebar_text_font == 'heading' %}h6{% endif %}">
+                        {{- sub_link.title -}}
+                      </a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+              {%- liquid
+                assign link_title_downcase = link.title | strip | downcase
+                assign mega_menu_block = ''
+
+                for block in section.blocks
+                  assign menu_item_downcase = block.settings.menu_item | strip | downcase
+
+                  if menu_item_downcase == link_title_downcase
+                    assign mega_menu_block = block
+                    break
+                  endif
+
+                endfor
+              -%}
+
+              {%- capture mega_menu_content -%}
+                {%- render 'mega-menu-images', context: 'sidebar', block: mega_menu_block -%}
+              {%- endcapture -%}
+
+              {%- if mega_menu_content != blank -%}
+                <div class="header-sidebar__promo scroll-area bleed md:unbleed">
+                  {{- mega_menu_content -}}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </header-sidebar-collapsible-panel>
+  {%- endif -%}
+</header-sidebar>

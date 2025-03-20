@@ -1,0 +1,189 @@
+
+{%- liquid
+  if hide_product_information
+    assign show_badges = false
+    assign show_rating = false
+    assign show_vendor = false
+    assign show_title = false
+    assign show_prices = false
+    assign show_swatches = false
+    assign show_quick_buy = show_quick_buy | default: settings.show_quick_buy, allow_false: true
+    assign show_secondary_image = show_secondary_image | default: settings.show_secondary_image, allow_false: true
+  else
+    assign show_badges = show_badges | default: true, allow_false: true
+    assign show_rating = show_rating | default: settings.show_product_rating, allow_false: true
+    assign show_vendor = show_vendor | default: settings.show_vendor, allow_false: true
+    assign show_quick_buy = show_quick_buy | default: settings.show_quick_buy, allow_false: true
+    assign show_title = true
+    assign show_prices = true
+    assign show_secondary_image = show_secondary_image | default: settings.show_secondary_image, allow_false: true
+    assign show_swatches = show_swatches | default: true, allow_false: true
+  endif
+-%}
+
+  {%- for option_value in matched_product_option.values -%}
+    {%- for variant in product.variants -%}
+      {% assign variant_selc = variant.title | split: '/' %}
+      {% assign variant_valname = variant_selc[0] | handleize %}
+      {% assign option_value_sel = option_value | handleize %}
+      {% assign color_sold_out = true %} 
+
+      {%- for variantcust in product.variants -%}
+        {% assign variant_selc_cust = variantcust.title | split: '/' %}
+        {% assign variant_valnamecust = variant_selc_cust[0] | handleize %}
+    
+        {% if variant_valnamecust == option_value_sel %}
+          {% if variantcust.available %}
+            {% assign color_sold_out = false %}
+            
+          {% endif %}
+        {% endif %}
+      {%- endfor -%}
+      {% if variant_valname == option_value_sel %}
+      <product-card class="product-card {{ matched_product_option.values }} test" {% if reveal %}reveal-on-scroll="true"{% endif %} handle="{{ product.handle | escape }}">
+         {%- comment -%}
+          --------------------------------------------------------------------------------------------------------------------
+          PRODUCT MEDIA
+          --------------------------------------------------------------------------------------------------------------------
+          {%- endcomment -%}
+          {%- assign productimage = image | default: variant.featured_media | default: variant.product.featured_media -%}
+          {%- if productimage -%}
+            <div class="product-card__figure niccos_figure  {% if show_image_slider %}cust-slider-container{% endif %}">
+             {% comment %}
+                <div class="cust_wish-list">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="17" viewBox="0 0 18 17" fill="none">
+                  <path d="M8.59863 1.24951C8.76281 0.916832 9.23719 0.916832 9.40138 1.24951L11.5268 5.55601C11.592 5.68811 11.718 5.77968 11.8638 5.80086L16.6163 6.49144C16.9834 6.54479 17.13 6.99595 16.8643 7.2549L13.4254 10.607C13.3199 10.7099 13.2718 10.858 13.2967 11.0032L14.1085 15.7365C14.1712 16.1022 13.7874 16.381 13.4591 16.2084L9.20829 13.9736C9.07789 13.9051 8.92211 13.9051 8.79172 13.9736L4.54094 16.2084C4.21258 16.381 3.82879 16.1022 3.89151 15.7365L4.70333 11.0032C4.72823 10.858 4.6801 10.7099 4.5746 10.607L1.13566 7.2549C0.870002 6.99595 1.01659 6.54479 1.38372 6.49144L6.13623 5.80086C6.28201 5.77968 6.40804 5.68811 6.47324 5.55601L8.59863 1.24951Z" stroke="black" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+             {% endcomment %}
+             {%- if show_badges -%}
+                {%- render 'product-badges', product: product, vertical: true, context: 'card', sold_out: color_sold_out -%}
+              {%- endif -%}
+        
+              <a href="{{ variant.url }}" class="{{ productimage.alt }} product-card__media {% if show_image_slider %}cust-slider{% endif %}" draggable="false" data-instant>
+                {%- capture sizes -%}
+                  {%- if stacked -%}
+                    (max-width: 699px) calc(100vw / {{ section.settings.products_per_row_mobile }}), (max-width: 999px) calc(100vw / {{ 3 | at_most: section.settings.products_per_row_desktop | default: 3 }} - 64px), calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }}))
+                  {%- else -%}
+                    (max-width: 699px) 74vw, (max-width: 999px) 38vw, calc((100vw - 96px) / {{ section.settings.products_per_row_desktop | default: 3 }} - (24px / {{ section.settings.products_per_row_desktop | default: 3 }} * {{ section.settings.products_per_row_desktop | default: 3 | minus: 1 }}))
+                  {%- endif -%}
+                {%- endcapture -%}
+        
+                {%- liquid
+                  assign main_media_loading_strategy = nil
+                  
+                  if section.index > 3 or position > 3
+                    assign main_media_loading_strategy = 'lazy'
+                  endif
+                -%}
+        
+                {%- capture main_image_classes -%}product-card__image product-card__image--primary {% if show_image_slider %}cust-slide cust-active{% endif %} {% if settings.product_image_aspect_ratio contains 'crop' %}object-cover{% endif %} aspect-{{ settings.product_image_aspect_ratio | split: '_' | first }}{%- endcapture -%}
+                {{- productimage | image_url: width: productimage.width | image_tag: loading: main_media_loading_strategy, sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'true', class: main_image_classes -}}
+        
+                
+                {% assign count_image = 0 %}
+                {% assign comparealt = productimage.alt | handleize %}
+                 {% if product.media.size > 1 and show_image_slider %}
+                  {% for image in product.media %}
+                     {% assign selcalt = image.alt | handleize %}
+         
+                    {% if comparealt == selcalt %}
+                  
+                       
+                       
+                      {% if productimage == image %}
+                          {% continue %}
+                         {% else %}
+                        {% assign count_image = count_image | plus: 1 %}
+                        {% endif %}
+                     
+                      {% echo image | image_url: width: next_media.width | image_tag: class: 'product-card__image cust-slide', loading: 'lazy', fetchpriority: 'low', sizes: sizes, widths: '200,300,400,500,600,700,800,1000,1200,1400,1600,1800', draggable: 'true' %}
+                     
+                    {% endif %}
+                  {% endfor %}
+              {% endif %}
+
+              </a>
+
+                 <div class="cust-slider-arrows sm-max:hidden" {% unless show_secondary_image and product.media.size > 1 and show_image_slider and count_image != 0 %}hidden{% endunless %}>
+                  <button class="cust-prev" aria-label="Previous Slide">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow"></path></svg>
+                  </button>
+                  <button class="cust-next" aria-label="Next Slide">
+                    <svg class="flickity-button-icon" viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" class="arrow" transform="translate(100, 100) rotate(180) "></path></svg>
+                  </button>
+                 </div>
+<div class="cust-slider-progress sm:hidden" {% unless show_secondary_image and product.media.size > 1 and show_image_slider and count_image != 0 %}hidden{% endunless %}>
+            <div class="cust-slider-progress-bar"></div>
+          </div>      
+             
+
+              {%- if show_quick_buy and variant.available -%}
+                
+                  <product-form>
+                    {%- form 'product', product -%}
+                      <input type="hidden" name="on_success" value="force_open_drawer">
+                      <input type="hidden" name="quantity" value="1">
+                      <input type="hidden" name="id" value="{{ variant.id }}">
+                      <button type="submit" class="product-card__quick-add-button">
+                        <span class="sr-only">{{ 'product.general.add_to_cart_button' | t }}</span>
+                        {%- render 'icon' with 'plus' -%}
+                      </button>
+                    {%- endform -%}
+                  </product-form>
+                
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- comment -%}
+          --------------------------------------------------------------------------------------------------------------------
+          PRODUCT INFO
+          --------------------------------------------------------------------------------------------------------------------
+          {%- endcomment -%}
+        
+          <div class="product-card__info empty:hidden">
+            {%- assign text_class = '' -%}
+    
+            {%- if settings.product_card_text_font == 'heading' -%}
+              {%- assign text_class = 'h6' -%}
+            {%- endif -%}
+        
+            {%- if show_title or show_prices or show_vendor and product.vendor != blank -%}
+              <div class="v-stack justify-items-center w-full gap-2">
+                {%- if show_vendor and product.vendor != blank -%}
+                  {%- capture vendor_class -%}smallcaps {% if settings.product_card_text_font == 'heading' %}heading{% endif %}{% endcapture %}
+                  {%- render 'vendor' with product.vendor, class: vendor_class -%}
+                {%- endif -%}
+        
+                {%- if show_title or show_prices -%}
+                  <div class="h-stack justify-between justify-items-center w-full text-start gap-4 pro_info_cust">
+                    {%- if show_title -%}
+                      <a href="{{ variant.url }}" class="product-title text-start {% if text_class != blank %}{{ text_class }}{% endif %} {% if settings.product_title_max_lines > 0 %}line-clamp{% endif %}" {% if settings.product_title_max_lines > 0 %}style="--line-clamp-count: {{ settings.product_title_max_lines }}"{% endif %} data-instant>
+                        {{- product.title -}} 
+                        {% comment %}
+                          <span class="card_option_name">( {{ option_value }} )</span>
+                        {% endcomment %}
+                      </a>
+                    {%- endif -%}
+        
+                    {%- if show_prices -%}
+                      {%- render 'price-list', variant: variant, context: 'card',custom_classs: 'justify-end' -%}
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+          {%- comment -%}
+          --------------------------------------------------------------------------------------------------------------------
+          PRODUCT Rating
+          --------------------------------------------------------------------------------------------------------------------
+          {%- endcomment -%}
+          {%- if show_rating -%}
+            {%- render 'product-rating', product: product, show_empty: settings.show_product_rating_if_empty, display_mode: settings.product_rating_mode -%}
+          {%- endif -%}
+      </product-card>
+      {% break %}
+      {% endif %}
+    {%- endfor -%}
+  {%- endfor -%}
