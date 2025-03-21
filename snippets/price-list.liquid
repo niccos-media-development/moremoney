@@ -140,7 +140,7 @@ Supported variables
       </sale-price>
     {%- endif -%}
 
-    {%- if variant.price < variant.compare_at_price -%}
+    {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
       <compare-at-price class="{{ compare_at_price_classes }}">
         <span class="sr-only">{{ 'product.price.regular_price' | t }}</span>
         {{- variant_compare_at_price -}}
