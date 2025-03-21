@@ -75,14 +75,14 @@
         "disabled": false,
         "settings": {}
       },
-      "9468172321995857178": {
-        "type": "shopify://apps/qikify-bogo-freegift/blocks/app-embed/2e94b962-8172-4839-8ad9-7837eb8b017a",
-        "disabled": false,
-        "settings": {}
-      },
       "18146506648094396618": {
         "type": "shopify://apps/langshop/blocks/sdk/84899e01-2b29-42af-99d6-46d16daa2111",
         "disabled": false,
+        "settings": {}
+      },
+      "9468172321995857178": {
+        "type": "shopify://apps/qikify-bogo-freegift/blocks/app-embed/2e94b962-8172-4839-8ad9-7837eb8b017a",
+        "disabled": true,
         "settings": {}
       }
     },
