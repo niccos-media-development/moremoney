@@ -517,19 +517,21 @@
                 </div>
               {% endif %}
             
-            {% assign show_returns_info = product.metafields.custom.returns.value %}
-{% if show_returns_info != 'false' and (block.settings.icon_2 != blank and block.settings.title_2 != blank) %}
-  <div class="cust-info-box__row">
-    <div class="cust-info-box__item">
-      {% if block.settings.icon_2 != blank %}
-        {%- capture sizes -%}{{ block.settings.icon_width_2 }}px{%- endcapture -%}
-        {%- capture widths -%}{{ block.settings.icon_width_2 }}, {{ block.settings.icon_width_2 | times: 2 | at_most: block.settings.icon_2.width }}{%- endcapture -%}
-        {%- capture style -%}--image-max-width: {{ block.settings.icon_width_2 }}px{%- endcapture -%}
-        {{- block.settings.icon_2 | image_url: width: block.settings.icon_2.width | image_tag: sizes: sizes, widths: widths, class: 'constrained-image', style: style -}}
-      {% endif %}
-      <p class="cust-info-box__title">{{ block.settings.title_2 }}</p>{{ product.metafields.custom.returns.value }}
+{% assign show_returns_info = product.metafields.custom.returns.value %}
+{% if show_returns_info != 'false' %}
+  {% if block.settings.icon_2 != blank and block.settings.title_2 != blank %}
+    <div class="cust-info-box__row">
+      <div class="cust-info-box__item">
+        {% if block.settings.icon_2 != blank %}
+          {%- capture sizes -%}{{ block.settings.icon_width_2 }}px{%- endcapture -%}
+          {%- capture widths -%}{{ block.settings.icon_width_2 }}, {{ block.settings.icon_width_2 | times: 2 | at_most: block.settings.icon_2.width }}{%- endcapture -%}
+          {%- capture style -%}--image-max-width: {{ block.settings.icon_width_2 }}px{%- endcapture -%}
+          {{- block.settings.icon_2 | image_url: width: block.settings.icon_2.width | image_tag: sizes: sizes, widths: widths, class: 'constrained-image', style: style -}}
+        {% endif %}
+        <p class="cust-info-box__title">{{ block.settings.title_2 }}</p>{{ product.metafields.custom.returns.value }}
+      </div>
     </div>
-  </div>
+  {% endif %}
 {% endif %}
             
               {% if block.settings.icon_3 != blank and block.settings.title_3 != blank %}
