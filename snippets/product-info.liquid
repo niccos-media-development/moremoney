@@ -517,8 +517,8 @@
                 </div>
               {% endif %}
             
-              {% assign show_returns_info = product.metafields.custom.returns.value %}
-{% if show_returns_info == true or show_returns_info == blank and block.settings.icon_2 != blank and block.settings.title_2 != blank %}
+            {% assign show_returns_info = product.metafields.custom.returns.value %}
+{% if show_returns_info != 'false' and (block.settings.icon_2 != blank and block.settings.title_2 != blank) %}
   <div class="cust-info-box__row">
     <div class="cust-info-box__item">
       {% if block.settings.icon_2 != blank %}
