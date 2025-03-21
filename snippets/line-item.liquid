@@ -40,13 +40,12 @@ Supported variables
 
         {%- render 'price-list', line_item: line_item, context: 'line_item' -%}
         {%- assign compare_price = line_item.variant.compare_at_price | default: 0 -%}
-{%- assign actual_price = line_item.variant.price | default: 0 -%}
-
-{%- if compare_price > actual_price -%}
-  <p class="compare-at-price text-subdued line-through text-sm">
-    {{ compare_price | money_with_currency }}
-  </p>
-{%- endif -%}
+        {%- assign actual_price = line_item.variant.price | default: 0 -%}
+        {%- if compare_price > actual_price -%}
+        <p class="compare-at-price text-subdued line-through text-sm">
+        {{ compare_price | money_with_currency }}
+        </p>
+        {%- endif -%}
       </div>
 
       {%- capture secondary_information -%}
