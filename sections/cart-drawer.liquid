@@ -127,24 +127,20 @@
               {% endif %}
           {% endif %}
           {%- unless section.settings.show_price_in_checkout_button -%}
-          <div class="cust-total">
-  <p><span class="total_lable">{{ section.settings.total_label }}</span> <strong>{{ section.settings.total_incl }}</strong></p>
-  <p class="total_drawe_price">{{ cart.total_price | money }}</p>
-</div>
-
-{%- assign compare_total = 0 -%}
+          {%- assign compare_total = 0 -%}
 {%- for item in cart.items -%}
-  {%- if item.variant.compare_at_price > item.final_price -%}
-    {%- assign line_total = item.variant.compare_at_price | times: item.quantity -%}
-    {%- assign compare_total = compare_total | plus: line_total -%}
-  {%- endif -%}
+  {%- assign item_compare_price = item.variant.compare_at_price | default: item.final_price -%}
+  {%- assign line_total = item_compare_price | times: item.quantity -%}
+  {%- assign compare_total = compare_total | plus: line_total -%}
 {%- endfor -%}
 
+{%- if compare_total > cart.total_price -%}
   <div class="cust-total-compare">
     <p class="total_drawe_price compare-at line-through">
       {{ compare_total | money }}
     </p>
   </div>
+{%- endif -%}
           {%- endunless -%}
         </div>
       </section>
