@@ -190,9 +190,7 @@ Supported variables
               endfor
             %}
              {% if product.metafields.custom.model_info != blank and resolved_option_selector_style == 'block' %}
-               <div class="product-info__block-item">
-            <p class="product-info__block-item size_message">{{ product.metafields.custom.model_info }}</p>
-               </div>
+            <p class="size_message">{{ product.metafields.custom.model_info }}</p>
           {% endif %}
           </div>
         {%- endif -%}
