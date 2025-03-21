@@ -82,7 +82,7 @@
       },
       "9468172321995857178": {
         "type": "shopify://apps/qikify-bogo-freegift/blocks/app-embed/2e94b962-8172-4839-8ad9-7837eb8b017a",
-        "disabled": true,
+        "disabled": false,
         "settings": {}
       }
     },
