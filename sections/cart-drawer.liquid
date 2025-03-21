@@ -1,6 +1,6 @@
 <cart-drawer id="cart-drawer" class="cart-drawer drawer {% if cart.empty? %}drawer--center-body{% endif %} color-scheme color-scheme--{{ section.settings.color_scheme.id }}" initial-focus="false" handle-editor-events>
   <p class="h4" slot="header">{{ 'cart.general.title' | t }}</p>
-
+{% render 'qikify-reward-bar' %}
   {%- if cart.empty? -%}
     <p class="h5 text-center">{{ 'cart.general.empty' | t }}</p>
   {%- else -%}
@@ -8,7 +8,7 @@
       {%- render 'free-shipping-bar' -%}
     {%- endif -%}
 
-    {% render 'qikify-reward-bar' %}
+    
     <div class="cart-drawer__items">
       {%- for line_item in cart.items -%}
         {%- render 'line-item', line_item: line_item, show_quantity_selector: true -%}
