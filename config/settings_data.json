@@ -1,1 +1,309 @@
-{"current":{"icon_stroke_width":1.4,"section_vertical_spacing":"md","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c","success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","heading_font":"helvetica_n4","heading_letter_spacing":18,"text_font":"helvetica_n4","text_font_size_desktop":14,"button_letter_spacing":18,"show_image_zoom_on_hover":false,"color_swatch_config":"ALL BLACK: #000000\nASH: #C7C3C8\nBEIGE: #F5F5DC\nBLACK: #000000\nBLACK NOTES: #000000\nBLACK WASHED: #2C2C2C\nBLUE: #0062CC\nBLUE NOTES: #1E3A8A\nBLUE WASHED: #5A7BBF\nBROWN: #895129\nCAMO: #78866B\nCONCRETE: #F7F4EF\nCREME: #F5F5DC\nDARK BLUE WASHED: #1B3B6F\nDARK GREY: #4C4C4C\nDARK NAVY:  #1B3B6F\nFLINT: #596372\nGREEN: #008000\nGREY: #808080\nGREY MELANGE: #CCCAC9\nGREY WASHED: #A9A9A9\nLIGHT GREY: #D3D3D3\nLILAC: #C8A2C8\nMINT BLUE: #8DD3C7\nNAVY: #000080\nNATURAL: #AD9E9E\nPINK: #FFC0CB\nPURPLE: #800080\nTOFFEE: #A67B5B\nWASHED BLACK: #2C2C2C\nWHITE: ##F4F4F4\nROYAL BLUE: #4169E1\nTORNADO GREY: #4169E1","show_secondary_image":true,"product_color_display":"hide","show_quick_buy":false,"show_sold_out_badge":false,"show_discount":false,"cart_show_free_shipping_bar":true,"cart_free_shipping_threshold":"100","social_facebook":"","social_instagram":"https:\/\/www.instagram.com\/moremoneymorelove.de\/?hl=de","social_whatsapp":"https:\/\/www.whatsapp.com\/channel\/0029Va8YxjU1dAvveUy8At0G","social_tiktok":"https:\/\/www.tiktok.com\/@moremoneymorelove?is_from_webapp=1&sender_device=pc","favicon":"shopify:\/\/shop_images\/logo_4ddbc992-9849-40d2-a569-1359e214c1e7.png","content_for_index":[],"blocks":{"5946647744298494267":{"type":"shopify:\/\/apps\/wishlist-plus\/blocks\/wishlist-app-embed\/80c3b1fc-3a8f-407e-8367-ffdeebb8b612","disabled":false,"settings":{}},"10274264662263595587":{"type":"shopify:\/\/apps\/wishlist-plus\/blocks\/wishlist-collections-embed\/80c3b1fc-3a8f-407e-8367-ffdeebb8b612","disabled":false,"settings":{"swym_collections_icon_type":"star","swym_collections_position":"top-right","swym_collections_vertical_offset":0,"swym_collections_horizontal_offset":0,"swym_collections_button_size":25,"swym_collections_icon_color":"#000000","swym_collections_product_link_selector":"-","swym_collections_product_tile_selector":"-","enable_variant_selector":false,"swym_add_to_wishlist_title_color":"#333333","swym_variant_selector_font_size_1":14,"swym_variant_selector_popup_bg_color":"#ffffff","swym_variant_selector_section_heading_color":"#000000","swym_variant_selector_section_heading_font_size_2":12,"swym_variant_selector_choose_create_text":"Choose or Create new Wishlist","swym_variant_selector_wishlist_btn_bg_color":"#292929","swym_variant_selector_wishlist_btn_color":"#ffffff","swym_variant_selector_product_detail_font_color":"#ffffff","swym_variant_selector_create_list_placeholder_text":"Enter wishlist name","swym_variant_selector_create_list_title":"Name Your Wishlist"}},"855628211100114053":{"type":"shopify:\/\/apps\/klaviyo-email-marketing-sms\/blocks\/klaviyo-onsite-embed\/2632fe16-c075-4321-a88b-50b567f42507","disabled":false,"settings":{}},"9468172321995857178":{"type":"shopify:\/\/apps\/qikify-bogo-freegift\/blocks\/app-embed\/2e94b962-8172-4839-8ad9-7837eb8b017a","disabled":false,"settings":{}},"18146506648094396618":{"type":"shopify:\/\/apps\/langshop\/blocks\/sdk\/84899e01-2b29-42af-99d6-46d16daa2111","disabled":false,"settings":{}}},"color_schemes":{"scheme-1":{"settings":{"background":"#f4f4f4","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#ffffff","background_gradient":"","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-3":{"settings":{"background":"#1c1c1c","background_gradient":"","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","background_gradient":"","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}}},"presets":{"Allure":{"section_vertical_spacing":"md","heading_font":"instrument_sans_n4","heading_letter_spacing":18,"text_font":"nunito_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#efefef","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#ffffff","text_color":"#1c1c1c","primary_button_background":"#1c1c1c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"},"Couture":{"section_vertical_spacing":"md","heading_font":"jost_n4","heading_letter_spacing":18,"text_font":"poppins_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#ffffff","text_color":"#5c5c5c","primary_button_background":"#5c5c5c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-2":{"settings":{"background":"#f3f3f3","text_color":"#5c5c5c","primary_button_background":"#5c5c5c","primary_button_text_color":"#ffffff","circle_button_background":"#ffffff","circle_button_icon":"#5c5c5c"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"},"Vogue":{"section_vertical_spacing":"xs","heading_font":"jost_n4","heading_letter_spacing":18,"text_font":"jost_n4","text_font_size_desktop":14,"button_letter_spacing":18,"color_schemes":{"scheme-1":{"settings":{"background":"#ffffff","text_color":"#303030","primary_button_background":"#f5db8b","primary_button_text_color":"#303030","circle_button_background":"#1c1c1c","circle_button_icon":"#f5db8b"}},"scheme-2":{"settings":{"background":"#ffffff","text_color":"#303030","primary_button_background":"#f5db8b","primary_button_text_color":"#303030","circle_button_background":"#1c1c1c","circle_button_icon":"#f5db8b"}},"scheme-3":{"settings":{"background":"#1c1c1c","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}},"scheme-4":{"settings":{"background":"rgba(0,0,0,0)","text_color":"#ffffff","primary_button_background":"#ffffff","primary_button_text_color":"#1c1c1c","circle_button_background":"#ffffff","circle_button_icon":"#1c1c1c"}}},"success_color":"#307a07","warning_color":"#ed8a00","error_color":"#cb2b2b","product_rating_color":"#1c1c1c","product_on_sale_accent":"#e32c2b","product_sold_out_badge_background":"#efefef","product_custom_badge_background":"#1c1c1c"}}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "icon_stroke_width": 1.4,
+    "section_vertical_spacing": "md",
+    "product_rating_color": "#1c1c1c",
+    "product_on_sale_accent": "#e32c2b",
+    "product_sold_out_badge_background": "#efefef",
+    "product_custom_badge_background": "#1c1c1c",
+    "success_color": "#307a07",
+    "warning_color": "#ed8a00",
+    "error_color": "#cb2b2b",
+    "heading_font": "helvetica_n4",
+    "heading_letter_spacing": 18,
+    "text_font": "helvetica_n4",
+    "text_font_size_desktop": 14,
+    "button_letter_spacing": 18,
+    "show_image_zoom_on_hover": false,
+    "color_swatch_config": "ALL BLACK: #000000\nASH: #C7C3C8\nBEIGE: #F5F5DC\nBLACK: #000000\nBLACK NOTES: #000000\nBLACK WASHED: #2C2C2C\nBLUE: #0062CC\nBLUE NOTES: #1E3A8A\nBLUE WASHED: #5A7BBF\nBROWN: #895129\nCAMO: #78866B\nCONCRETE: #F7F4EF\nCREME: #F5F5DC\nDARK BLUE WASHED: #1B3B6F\nDARK GREY: #4C4C4C\nDARK NAVY:  #1B3B6F\nFLINT: #596372\nGREEN: #008000\nGREY: #808080\nGREY MELANGE: #CCCAC9\nGREY WASHED: #A9A9A9\nLIGHT GREY: #D3D3D3\nLILAC: #C8A2C8\nMINT BLUE: #8DD3C7\nNAVY: #000080\nNATURAL: #AD9E9E\nPINK: #FFC0CB\nPURPLE: #800080\nTOFFEE: #A67B5B\nWASHED BLACK: #2C2C2C\nWHITE: ##F4F4F4\nROYAL BLUE: #4169E1\nTORNADO GREY: #4169E1",
+    "show_secondary_image": true,
+    "product_color_display": "hide",
+    "show_quick_buy": false,
+    "show_sold_out_badge": false,
+    "show_discount": false,
+    "cart_show_free_shipping_bar": false,
+    "cart_free_shipping_threshold": "100",
+    "social_facebook": "",
+    "social_instagram": "https://www.instagram.com/moremoneymorelove.de/?hl=de",
+    "social_whatsapp": "https://www.whatsapp.com/channel/0029Va8YxjU1dAvveUy8At0G",
+    "social_tiktok": "https://www.tiktok.com/@moremoneymorelove?is_from_webapp=1&sender_device=pc",
+    "favicon": "shopify://shop_images/logo_4ddbc992-9849-40d2-a569-1359e214c1e7.png",
+    "content_for_index": [],
+    "blocks": {
+      "5946647744298494267": {
+        "type": "shopify://apps/wishlist-plus/blocks/wishlist-app-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+        "disabled": false,
+        "settings": {}
+      },
+      "10274264662263595587": {
+        "type": "shopify://apps/wishlist-plus/blocks/wishlist-collections-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+        "disabled": false,
+        "settings": {
+          "swym_collections_icon_type": "star",
+          "swym_collections_position": "top-right",
+          "swym_collections_vertical_offset": 0,
+          "swym_collections_horizontal_offset": 0,
+          "swym_collections_button_size": 25,
+          "swym_collections_icon_color": "#000000",
+          "swym_collections_product_link_selector": "-",
+          "swym_collections_product_tile_selector": "-",
+          "enable_variant_selector": false,
+          "swym_add_to_wishlist_title_color": "#333333",
+          "swym_variant_selector_font_size_1": 14,
+          "swym_variant_selector_popup_bg_color": "#ffffff",
+          "swym_variant_selector_section_heading_color": "#000000",
+          "swym_variant_selector_section_heading_font_size_2": 12,
+          "swym_variant_selector_choose_create_text": "Choose or Create new Wishlist",
+          "swym_variant_selector_wishlist_btn_bg_color": "#292929",
+          "swym_variant_selector_wishlist_btn_color": "#ffffff",
+          "swym_variant_selector_product_detail_font_color": "#ffffff",
+          "swym_variant_selector_create_list_placeholder_text": "Enter wishlist name",
+          "swym_variant_selector_create_list_title": "Name Your Wishlist"
+        }
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "9468172321995857178": {
+        "type": "shopify://apps/qikify-bogo-freegift/blocks/app-embed/2e94b962-8172-4839-8ad9-7837eb8b017a",
+        "disabled": false,
+        "settings": {}
+      },
+      "18146506648094396618": {
+        "type": "shopify://apps/langshop/blocks/sdk/84899e01-2b29-42af-99d6-46d16daa2111",
+        "disabled": false,
+        "settings": {}
+      }
+    },
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#f4f4f4",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text_color": "#1c1c1c",
+          "primary_button_background": "#1c1c1c",
+          "primary_button_text_color": "#ffffff",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#1c1c1c",
+          "background_gradient": "",
+          "text_color": "#ffffff",
+          "primary_button_background": "#ffffff",
+          "primary_button_text_color": "#1c1c1c",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "rgba(0,0,0,0)",
+          "background_gradient": "",
+          "text_color": "#ffffff",
+          "primary_button_background": "#ffffff",
+          "primary_button_text_color": "#1c1c1c",
+          "circle_button_background": "#ffffff",
+          "circle_button_icon": "#1c1c1c"
+        }
+      }
+    }
+  },
+  "presets": {
+    "Allure": {
+      "section_vertical_spacing": "md",
+      "heading_font": "instrument_sans_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "nunito_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#efefef",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#1c1c1c",
+            "primary_button_background": "#1c1c1c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    },
+    "Couture": {
+      "section_vertical_spacing": "md",
+      "heading_font": "jost_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "poppins_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#5c5c5c",
+            "primary_button_background": "#5c5c5c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#f3f3f3",
+            "text_color": "#5c5c5c",
+            "primary_button_background": "#5c5c5c",
+            "primary_button_text_color": "#ffffff",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#5c5c5c"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    },
+    "Vogue": {
+      "section_vertical_spacing": "xs",
+      "heading_font": "jost_n4",
+      "heading_letter_spacing": 18,
+      "text_font": "jost_n4",
+      "text_font_size_desktop": 14,
+      "button_letter_spacing": 18,
+      "color_schemes": {
+        "scheme-1": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#303030",
+            "primary_button_background": "#f5db8b",
+            "primary_button_text_color": "#303030",
+            "circle_button_background": "#1c1c1c",
+            "circle_button_icon": "#f5db8b"
+          }
+        },
+        "scheme-2": {
+          "settings": {
+            "background": "#ffffff",
+            "text_color": "#303030",
+            "primary_button_background": "#f5db8b",
+            "primary_button_text_color": "#303030",
+            "circle_button_background": "#1c1c1c",
+            "circle_button_icon": "#f5db8b"
+          }
+        },
+        "scheme-3": {
+          "settings": {
+            "background": "#1c1c1c",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        },
+        "scheme-4": {
+          "settings": {
+            "background": "rgba(0,0,0,0)",
+            "text_color": "#ffffff",
+            "primary_button_background": "#ffffff",
+            "primary_button_text_color": "#1c1c1c",
+            "circle_button_background": "#ffffff",
+            "circle_button_icon": "#1c1c1c"
+          }
+        }
+      },
+      "success_color": "#307a07",
+      "warning_color": "#ed8a00",
+      "error_color": "#cb2b2b",
+      "product_rating_color": "#1c1c1c",
+      "product_on_sale_accent": "#e32c2b",
+      "product_sold_out_badge_background": "#efefef",
+      "product_custom_badge_background": "#1c1c1c"
+    }
+  }
+}
