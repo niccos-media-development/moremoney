@@ -39,6 +39,7 @@ Supported variables
         {%- endif -%}
 
         {%- render 'price-list', line_item: line_item, context: 'line_item' -%}
+        {{- compare_price | money_with_currency -}}
       </div>
 
       {%- capture secondary_information -%}
