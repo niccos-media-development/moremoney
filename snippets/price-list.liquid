@@ -140,12 +140,20 @@ Supported variables
       </sale-price>
     {%- endif -%}
 
-    {%- if variant.price < variant.compare_at_price -%}
-      <compare-at-price class="{{ compare_at_price_classes }}">
-        <span class="sr-only">{{ 'product.price.regular_price' | t }}</span>
-        {{- variant_compare_at_price -}}
-      </compare-at-price>
+    {%- assign compare_price = line_item.variant.compare_at_price -%}
+{%- assign current_price = line_item.variant.price -%}
+
+{%- if compare_price > current_price -%}
+  <compare-at-price class="{{ compare_at_price_classes }}">
+    <span class="sr-only">{{ 'product.price.regular_price' | t }}</span>
+
+    {%- if settings.currency_code_enabled -%}
+      {{- compare_price | money_with_currency -}}
+    {%- else -%}
+      {{- compare_price | money -}}
     {%- endif -%}
+  </compare-at-price>
+{%- endif -%}
   {%- else -%}
     {%- comment -%}
     --------------------------------------------------------------------------------------------------------------------
