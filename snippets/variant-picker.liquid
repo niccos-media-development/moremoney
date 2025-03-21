@@ -195,10 +195,6 @@ Supported variables
         {% endunless %}
     {%- endfor -%}
 
-   {% if product.metafields.custom.model_info != blank and resolved_option_selector_style == 'block' %}
-            <p class="size_message">{{ product.metafields.custom.model_info }}</p>
-          {% endif %}
-
     {%- unless request.design_mode -%}
       <noscript>
         {%- assign input_label = 'product.general.variant' | t -%}
