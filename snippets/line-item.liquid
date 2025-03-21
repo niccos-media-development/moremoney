@@ -38,6 +38,7 @@ Supported variables
           <p class="{{ text_class }}">{{ line_item.product.title | default: line_item.title }}</p>
         {%- endif -%}
 
+        <div class="price-list">
         {%- render 'price-list', line_item: line_item, context: 'line_item' -%}
         {%- assign compare_price = line_item.variant.compare_at_price | default: 0 -%}
         {%- assign actual_price = line_item.variant.price | default: 0 -%}
@@ -46,6 +47,7 @@ Supported variables
         {{ compare_price | money_with_currency }}
         </p>
         {%- endif -%}
+        </div>
       </div>
 
       {%- capture secondary_information -%}
