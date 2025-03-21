@@ -1334,6 +1334,7 @@ h3.cust-product-title,p.cust-product-price {
     line-height: 150%;
     letter-spacing: -0.14px;
     text-transform: uppercase;
+    margin-block-start: var(--product-info-gap);
 }
 .feature-badge{
       column-gap: 18px;
