@@ -140,13 +140,11 @@
   {%- endif -%}
 {%- endfor -%}
 
-{%- if compare_total > cart.total_price -%}
   <div class="cust-total-compare">
     <p class="total_drawe_price compare-at line-through">
       {{ compare_total | money }}
     </p>
   </div>
-{%- endif -%}
           {%- endunless -%}
         </div>
       </section>
