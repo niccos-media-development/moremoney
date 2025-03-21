@@ -42,19 +42,10 @@ Supported variables
       </div>
 
       {%- capture secondary_information -%}
-       {%- unless line_item.product.has_only_default_variant or line_item.gift_card -%}
-          {%- for option in line_item.product.options -%}
-            <p class="smallcaps text-subdued cust_option_cartline"><span>{{ option }}:</span> {{ line_item.variant.options[forloop.index0] }}</p>
-          {%- endfor -%}
+        {%- unless line_item.product.has_only_default_variant or line_item.gift_card -%}
+          <p class="smallcaps text-subdued">{{ line_item.variant.title }}</p>
         {%- endunless -%}
-         {%- if show_quantity_selector -%}
-        <line-item-quantity class="h-stack gap-4 {% if request.page_type == 'cart' %}sm:hidden{% endif %} cust_option_cartline">
-          <span>Menge:</span>
-          {%- render 'quantity-selector', line_item: line_item, size: 'sm' -%}          
-        </line-item-quantity>
-       {%- else -%}
-          <p class="text-subdued text-sm sm:hidden">{{ 'customer.order.quantity' | t }}: {{ line_item.quantity }}</p>
-        {%- endif -%}
+
         {%- if line_item.selling_plan_allocation -%}
           <p class="text-subdued">{{ line_item.selling_plan_allocation.selling_plan.name }}</p>
         {%- endif -%}
@@ -87,9 +78,15 @@ Supported variables
       {%- endif -%}
 
       {%- if show_quantity_selector -%}
-         <a href="{{ line_item.url_to_remove }}" class="link text-xs removeline_item" aria-label="{{ 'cart.order.remove_with_title' | t: title: line_item.title | escape }}">
+        <line-item-quantity class="h-stack gap-4 {% if request.page_type == 'cart' %}sm:hidden{% endif %}">
+          {%- render 'quantity-selector', line_item: line_item, size: 'sm' -%}
+          
+          <a href="{{ line_item.url_to_remove }}" class="link text-xs" aria-label="{{ 'cart.order.remove_with_title' | t: title: line_item.title | escape }}">
             {{- 'cart.order.remove' | t -}}
           </a>
+        </line-item-quantity>
+      {%- else -%}
+        <p class="text-subdued text-sm sm:hidden">{{ 'customer.order.quantity' | t }}: {{ line_item.quantity }}</p>
       {%- endif -%}
 
       {%- if line_item.line_level_discount_allocations != blank -%}
