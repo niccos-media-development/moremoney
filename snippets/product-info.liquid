@@ -636,17 +636,30 @@ Supported variables
       </div>
     </div>
     <div class="cust-product-options">
-      <a href="{{ product.url }}" class="cust-options thumbnail-swatch {% if product.url == request.path %}active{% endif %} {% if product.selected_or_first_available_variant.available == false %}is-disabled{% endif %}">
+      {% assign current_has_inventory = false %}
+      {% for variant in product.variants %}
+        {% if variant.available %}
+          {% assign current_has_inventory = true %}
+        {% endif %}
+      {% endfor %}
+      <a href="{{ product.url }}" class="cust-options thumbnail-swatch
+        {% if product.url == request.path %}active{% endif %}
+        {% unless current_has_inventory %}is-disabled{% endunless %}">
         {{- product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
       </a>
 
       {% for option in product.metafields.custom.product_options.value %}
         {% assign option_product = option | product %}
         {% if option_product != blank %}
-          {% assign first_variant = option_product.variants.first %}
+          {% assign has_inventory = false %}
+          {% for variant in option_product.variants %}
+            {% if variant.available %}
+              {% assign has_inventory = true %}
+            {% endif %}
+          {% endfor %}
           <a href="{{ option_product.url }}" class="cust-options thumbnail-swatch
             {% if option_product.url == request.path %}active{% endif %}
-            {% if first_variant.available == false %}is-disabled{% endif %}">
+            {% unless has_inventory %}is-disabled{% endunless %}">
             {{- option_product.featured_image | image_url: width: image.width | image_tag: sizes: '(max-width: 699px) 48px, 68px', widths: '48,68,96,136', class: 'object-contain' -}}
           </a>
         {% endif %}
