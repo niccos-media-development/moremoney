@@ -3298,36 +3298,6 @@ var _VariantPicker = class _VariantPicker extends HTMLElement {
       }
     }));
     if (!productChange) {
-       const swatchSoldout =  document.getElementById("soldout-badge");
-       const currentVariant = __privateGet(this, _selectedVariant);
-       let comingSoon = false;
-
-        document.querySelectorAll('#coming_soon input[type="hidden"]').forEach(input => {
-            if (input.getAttribute('coming_soon') === 'true' && input.id === String(currentVariant.id)) {
-                console.log(input.id);
-                comingSoon = true;
-            }
-        });
-    
-        const comingCustomForm = document.getElementById("coming_cusomt_form");
-        const availableCustomForm = document.getElementById("available_cusomt_form");
-    
-        if (comingCustomForm && availableCustomForm) {
-            if (comingSoon) {
-                comingCustomForm.classList.remove("hidden");
-                availableCustomForm.classList.add("hidden");
-            } else {
-                comingCustomForm.classList.add("hidden");
-                availableCustomForm.classList.remove("hidden");
-            }
-        }
-        if(swatchSoldout){
-          if(currentVariant.available == true){
-            swatchSoldout.classList.add("sold-out-badge-hide");
-          }else{
-            swatchSoldout.classList.remove("sold-out-badge-hide");
-          }
-        }
       __privateGet(this, _form).dispatchEvent(new CustomEvent("variant:change", {
         bubbles: true,
         detail: {
