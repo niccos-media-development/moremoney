@@ -527,7 +527,7 @@
         {%- capture style -%}--image-max-width: {{ block.settings.icon_width_2 }}px{%- endcapture -%}
         {{- block.settings.icon_2 | image_url: width: block.settings.icon_2.width | image_tag: sizes: sizes, widths: widths, class: 'constrained-image', style: style -}}
       {% endif %}
-      <p class="cust-info-box__title">{{ block.settings.title_2 }}</p>
+      <p class="cust-info-box__title">{{ block.settings.title_2 }}</p>{{ product.metafields.custom.returns.value }}
     </div>
   </div>
 {% endif %}
