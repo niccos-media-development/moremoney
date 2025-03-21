@@ -1326,16 +1326,17 @@ h3.cust-product-title,p.cust-product-price {
     text-transform: uppercase;
     padding: 16px 10px;
 }
+
 .size_message {
     color: #000;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 150%;
-    letter-spacing: -0.14px;
     text-transform: uppercase;
-  
+    margin-left: 18px;
 }
+
 .feature-badge{
       column-gap: 18px;
     padding: 21px 25px;
