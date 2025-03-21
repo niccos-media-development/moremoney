@@ -1,4 +1,9 @@
-<cart-drawer id="cart-drawer" class="cart-drawer drawer {% if cart.empty? %}drawer--center-body{% endif %} color-scheme color-scheme--{{ section.settings.color_scheme.id }}" initial-focus="false" handle-editor-events>
+<cart-drawer
+  id="cart-drawer"
+  class="cart-drawer drawer {% if cart.empty? %}drawer--center-body{% endif %} color-scheme color-scheme--{{ section.settings.color_scheme.id }}"
+  initial-focus="false"
+  handle-editor-events
+>
   <p class="h4" slot="header">{{ 'cart.general.title' | t }}</p>
 
   {%- if cart.empty? -%}
@@ -31,7 +36,10 @@
       <div class="cart-drawer__complementary-products complementary-products">
         {%- assign carousel_id = 'complementary-products-carousel-' | append: section.id -%}
 
-        {%- if section.settings.cross_sell_title != blank or section.settings.cross_sell_stack_products == false and cross_sell_products_count > 1 -%}
+        {%- if section.settings.cross_sell_title != blank
+          or section.settings.cross_sell_stack_products == false
+          and cross_sell_products_count > 1
+        -%}
           <div class="complementary-products__header complementary-products__header--align-start">
             <p class="h6">{{ section.settings.cross_sell_title }}</p>
 
@@ -64,7 +72,10 @@
             {{- complementary_products -}}
           </div>
         {%- else -%}
-          <scroll-carousel id="{{ carousel_id }}" class="complementary-products__product-list complementary-products__product-list--carousel scroll-area bleed snap-x">
+          <scroll-carousel
+            id="{{ carousel_id }}"
+            class="complementary-products__product-list complementary-products__product-list--carousel scroll-area bleed snap-x"
+          >
             {{- complementary_products -}}
           </scroll-carousel>
         {%- endif -%}
@@ -79,14 +90,23 @@
         <div class="v-stack gap-0.5 justify-items-start">
           {%- if section.settings.show_cart_note -%}
             {%- assign cart_note_dialog_id = 'cart-note-' | append: section.id -%}
-            <button class="link-faded-reverse" aria-controls="{{ cart_note_dialog_id }}">{{ 'cart.general.add_order_note' | t }}</button>
+            <button class="link-faded-reverse" aria-controls="{{ cart_note_dialog_id }}">
+              {{ 'cart.general.add_order_note' | t }}
+            </button>
 
             <cart-note-dialog id="{{ cart_note_dialog_id }}" class="cart-drawer__order-note">
               <div class="form">
                 <cart-note class="form-control">
                   {%- assign order_note = 'cart.general.order_note' | t -%}
                   {%- assign placeholder = 'cart.general.note_placeholder' | t -%}
-                  {%- render 'input', name: 'note', multiline: 3, label: order_note, value: cart.note, placeholder: placeholder, show_label_as_block: true -%}
+                  {%- render 'input',
+                    name: 'note',
+                    multiline: 3,
+                    label: order_note,
+                    value: cart.note,
+                    placeholder: placeholder,
+                    show_label_as_block: true
+                  -%}
                 </cart-note>
 
                 <dialog-close-button class="contents">
@@ -104,54 +124,59 @@
 
       {% for discount_application in cart.cart_level_discount_applications %}
         <div class="h-stack justify-start gap-4">
-          <span class="discount-badge text-xs">{%- render 'icon' with 'discount', width: 12 -%} {{- discount_application.title -}}</span>
+          <span class="discount-badge text-xs">
+            {%- render 'icon' with 'discount', width: 12 -%}
+            {{- discount_application.title -}}
+          </span>
           <span class="text-subdued">-{{ discount_application.total_allocated_amount | money }}</span>
         </div>
       {% endfor %}
-       {% if section.settings.delivery_time != blank or section.settings.shipping_label != blank or section.settings.shipping_cost != blank or section.settings.show_price_in_checkout_button == false %}
-      <section class="cust-order-summary">
-        <div class="cust-container">
-          {% if section.settings.delivery_time != blank %}
-          <div class="cust-delivery-time">
-            <span class="cust-delivery-dot" style="background-color: {{ section.settings.dot_color }};"></span>
-            <p class="info_drawer">{{ section.settings.delivery_time }}</p>
-          </div>
-          {% endif %}
-          {% if section.settings.shipping_label != blank or section.settings.shipping_cost != blank %}
-           {%- assign free_shipping_threshold = settings.cart_free_shipping_threshold | times: 100 -%}
-          {% if cart.total_price >= free_shipping_threshold %}
-          <div class="{{  cart.total_price }} cust-shipping test {{ free_shipping_threshold }}">
-            <p class="info_drawer">{{ section.settings.shipping_label }}</p>
-            <p class="info_drawer">{{ section.settings.shipping_cost }}</p>
-          </div>
+      {% if section.settings.delivery_time != blank
+        or section.settings.shipping_label != blank
+        or section.settings.shipping_cost != blank
+        or section.settings.show_price_in_checkout_button == false
+      %}
+        <section class="cust-order-summary">
+          <div class="cust-container">
+            {% if section.settings.delivery_time != blank %}
+              <div class="cust-delivery-time">
+                <span class="cust-delivery-dot" style="background-color: {{ section.settings.dot_color }};"></span>
+                <p class="info_drawer">{{ section.settings.delivery_time }}</p>
+              </div>
+            {% endif %}
+            {% if section.settings.shipping_label != blank or section.settings.shipping_cost != blank %}
+              {%- assign free_shipping_threshold = settings.cart_free_shipping_threshold | times: 100 -%}
+              {% if cart.total_price >= free_shipping_threshold %}
+                <div class="{{  cart.total_price }} cust-shipping test {{ free_shipping_threshold }}">
+                  <p class="info_drawer">{{ section.settings.shipping_label }}</p>
+                  <p class="info_drawer">{{ section.settings.shipping_cost }}</p>
+                </div>
               {% endif %}
-          {% endif %}
-          {%- unless section.settings.show_price_in_checkout_button -%}
-          <div class="cust-total">
-  <p>
-    <span class="total_lable">{{ section.settings.total_label }}</span>
-    <strong>{{ section.settings.total_incl }}</strong>
-  </p>
-  <p class="total_drawe_price">{{ cart.total_price | money }}</p>
-</div>
-
-{%- assign compare_total = 0 -%}
-{%- for item in cart.items -%}
-  {%- assign item_compare_price = item.variant.compare_at_price | default: item.final_price -%}
-  {%- assign line_total = item_compare_price | times: item.quantity -%}
-  {%- assign compare_total = compare_total | plus: line_total -%}
-{%- endfor -%}
-
-{%- if compare_total > cart.total_price -%}
-  <div class="cust-total-compare">
-    <p class="total_drawe_price compare-at line-through">
-      {{ compare_total | money }}
-    </p>
-  </div>
-{%- endif -%}
-          {%- endunless -%}
-        </div>
-      </section>
+            {% endif %}
+            {%- unless section.settings.show_price_in_checkout_button -%}
+              {%- assign compare_total = 0 -%}
+              {%- for item in cart.items -%}
+                {%- assign item_compare_price = item.variant.compare_at_price | default: item.final_price -%}
+                {%- assign line_total = item_compare_price | times: item.quantity -%}
+                {%- assign compare_total = compare_total | plus: line_total -%}
+              {%- endfor -%}
+              <div class="cust-total">
+                <p>
+                  <span class="total_lable">{{ section.settings.total_label }}</span>
+                  <strong>{{ section.settings.total_incl }}</strong>
+                </p>
+                <p class="total_drawe_price">{{ cart.total_price | money }}</p>
+                {%- if compare_total > cart.total_price -%}
+                  <div class="cust-total-compare">
+                    <p class="total_drawe_price compare-at line-through">
+                      {{ compare_total | money }}
+                    </p>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endunless -%}
+          </div>
+        </section>
       {% endif %}
 
       <div class="button-group">
@@ -173,7 +198,7 @@
         {%- endif -%}
       </div>
       <div class="cart_drawer_payment_icons">
-       <img src="https://cdn.shopify.com/s/files/1/0511/9541/2635/files/Design_ohne_Titel_5_ec2fc527-5073-419a-8a90-1092ec6caf97.png?v=1738842121">
+        <img src="https://cdn.shopify.com/s/files/1/0511/9541/2635/files/Design_ohne_Titel_5_ec2fc527-5073-419a-8a90-1092ec6caf97.png?v=1738842121">
       </div>
     </form>
   {%- endif -%}
