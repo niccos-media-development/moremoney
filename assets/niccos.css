@@ -1717,3 +1717,11 @@ p.cust-info-box__title {
   left : 0;
   padidng-left : 0;
 }
+
+.cust-options.thumbnail-swatch.active.is-disabled {
+  --swatch-disabled-strike-color: currentColor;
+  color: var(--text-color);
+  border-color: currentColor;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
