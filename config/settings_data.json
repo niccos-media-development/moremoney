@@ -30,7 +30,7 @@
     "show_quick_buy": false,
     "show_sold_out_badge": false,
     "show_discount": false,
-    "cart_show_free_shipping_bar": true,
+    "cart_show_free_shipping_bar": false,
     "cart_free_shipping_threshold": "100",
     "social_facebook": "",
     "social_instagram": "https://www.instagram.com/moremoneymorelove.de/?hl=de",
