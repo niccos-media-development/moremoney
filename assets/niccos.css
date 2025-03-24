@@ -223,7 +223,6 @@ free-shipping-bar.free-shipping-bar span.text-subdued {
 }
 .cart-drawer__items {
     padding-top: 0;
-    border-top: 1px solid;
     gap:0;
 }
 .cart-drawer__items line-item.line-item img {
@@ -1326,15 +1325,14 @@ h3.cust-product-title,p.cust-product-price {
     text-transform: uppercase;
     padding: 16px 10px;
 }
+
 .size_message {
     color: #000;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%;
-    letter-spacing: -0.14px;
-    text-transform: uppercase;
 }
+
 .feature-badge{
       column-gap: 18px;
     padding: 21px 25px;
@@ -1717,4 +1715,17 @@ p.cust-info-box__title {
   top : -20px;
   left : 0;
   padidng-left : 0;
+}
+
+.cust-options.thumbnail-swatch.active.is-disabled {
+  --swatch-disabled-strike-color: currentColor;
+  color: var(--text-color);
+  border-color: currentColor;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+.total-wrapper {
+  display:flex;
+  gap:5px;
 }
