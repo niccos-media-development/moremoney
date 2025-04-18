@@ -20,7 +20,7 @@
         "show_view_cart_button": false,
         "show_checkout_button": true,
         "show_price_in_checkout_button": false,
-        "savings_background": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+        "savings_background": "linear-gradient(228deg, rgba(21, 209, 252, 1) 14%, rgba(187, 48, 254, 1) 83%)",
         "savings_color": "#ffffff",
         "cross_sell_products": [],
         "cross_sell_title": "Complete with",
