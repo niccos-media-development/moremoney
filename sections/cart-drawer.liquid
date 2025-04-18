@@ -1,3 +1,15 @@
+<style>
+  .cust-savings {
+    background: {{ section.settings.savings_background }};
+    color: {{ section.settings.savings_color }};
+
+    display: flex;
+    align-items: center;
+    padding: 0.75rem; 0.5rem;
+    justify-content: space-between;
+  }
+</style>
+
 <cart-drawer
   id="cart-drawer"
   class="cart-drawer drawer {% if cart.empty? %}drawer--center-body{% endif %} color-scheme color-scheme--{{ section.settings.color_scheme.id }}"
@@ -166,17 +178,39 @@
                   <strong>{{ section.settings.total_incl }}</strong>
                 </p>
                 <div class="total-wrapper">
-                <p class="total_drawe_price">{{ cart.total_price | money }}</p>
-                {%- if compare_total > cart.total_price -%}
-                  <div class="cust-total-compare">
-                    <p class="total_drawe_price compare-at line-through">
-                      {{ compare_total | money }}
-                    </p>
-                  </div>
-                  
-                {%- endif -%}
+                  <p class="total_drawe_price">{{ cart.total_price | money }}</p>
+                  {%- if compare_total > cart.total_price -%}
+                    <div class="cust-total-compare">
+                      <p class="total_drawe_price compare-at line-through">
+                        {{ compare_total | money }}
+                      </p>
+                    </div>
+                  {%- endif -%}
+                </div>
               </div>
-              </div>
+              {%- liquid
+                assign total = 0
+                for item in cart.items
+                  if item.price < 1
+                    assign total = total | plus: item.variant.compare_at_price | times: item.quantity
+                  elsif item.variant.compare_at_price > item.final_price
+                    assign diff = item.variant.compare_at_price | minus: item.final_price
+                    assign diff = diff | times: item.quantity
+                    assign total = total | plus: diff
+                  elsif item.price < item.final_price
+                    assign diff = item.final_price | minus: item.price
+                    assign diff = diff | times: item.quantity
+                    assign total = total | plus: diff
+                  endif
+                endfor
+              -%}
+              
+              {%- if total > 0 %}
+                <div class="cust-savings">
+                  <div><span>{{ 'cart.general.savings_label' | t }}</span></div>
+                  <div><span class="bold">{{ total | money }}</span></div>
+                </div>
+              {% endif -%}
             {%- endunless -%}
           </div>
         </section>
@@ -256,6 +290,20 @@
       "id": "show_price_in_checkout_button",
       "label": "t:sections.cart_drawer.show_price_in_checkout_button",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Savings"
+    },
+    {
+      "type": "color_background",
+      "id": "savings_background",
+      "label": "Background"
+    },
+    {
+      "type": "color",
+      "id": "savings_color",
+      "label": "Text Color"
     },
     {
       "type": "header",
