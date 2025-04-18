@@ -1,1 +1,66 @@
-{"type":"custom.overlay","name":"Overlay group","sections":{"cart-drawer":{"type":"cart-drawer","settings":{"color_scheme":"scheme-2","show_cart_note":false,"show_shipping_text":false,"show_view_cart_button":false,"show_checkout_button":true,"show_price_in_checkout_button":false,"cross_sell_products":[],"cross_sell_title":"Complete with","cross_sell_stack_products":false,"delivery_time":"VORAUSSICHTLICHE LIEFERZEIT VON 2-4 WERKTAGEN","dot_color":"#13c501","shipping_label":"DEINE VERSANDKOSTEN:","shipping_cost":"KOSTENLOS","total_label":"GESAMT","total_incl":"(INKL. MWST)"}},"newsletter-popup":{"type":"newsletter-popup","disabled":true,"settings":{"color_scheme":"","apparition_delay":5,"show_only_on_index":false,"hide_for_account_holders":false,"show_only_once":false,"show_newsletter_form":false,"title":"Signup for our newsletter","content":"Describe what your customers will receive when subscribing to your newsletter.","button_text":"Subscribe"}},"privacy-banner":{"type":"privacy-banner","disabled":true,"settings":{"color_scheme":"","title":"🍪 Cookie policy","content":"<p>We use cookies and similar technologies to provide the best experience on our website. Refer to our Privacy Policy for more information.<\/p>"}}},"order":["cart-drawer","newsletter-popup","privacy-banner"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.overlay",
+  "name": "Overlay group",
+  "sections": {
+    "cart-drawer": {
+      "type": "cart-drawer",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "show_cart_note": false,
+        "show_shipping_text": false,
+        "show_view_cart_button": false,
+        "show_checkout_button": true,
+        "show_price_in_checkout_button": false,
+        "savings_background": "linear-gradient(136deg, rgba(10, 234, 237, 1) 11%, rgba(250, 13, 253, 1) 84%)",
+        "savings_color": "#ffffff",
+        "cross_sell_products": [],
+        "cross_sell_title": "Complete with",
+        "cross_sell_stack_products": false,
+        "delivery_time": "VORAUSSICHTLICHE LIEFERZEIT VON 2-4 WERKTAGEN",
+        "dot_color": "#13c501",
+        "shipping_label": "DEINE VERSANDKOSTEN:",
+        "shipping_cost": "KOSTENLOS",
+        "total_label": "GESAMT",
+        "total_incl": "(INKL. MWST)"
+      }
+    },
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "apparition_delay": 5,
+        "show_only_on_index": false,
+        "hide_for_account_holders": false,
+        "show_only_once": false,
+        "show_newsletter_form": false,
+        "title": "Signup for our newsletter",
+        "content": "Describe what your customers will receive when subscribing to your newsletter.",
+        "button_text": "Subscribe"
+      }
+    },
+    "privacy-banner": {
+      "type": "privacy-banner",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "title": "🍪 Cookie policy",
+        "content": "<p>We use cookies and similar technologies to provide the best experience on our website. Refer to our Privacy Policy for more information.</p>"
+      }
+    }
+  },
+  "order": [
+    "cart-drawer",
+    "newsletter-popup",
+    "privacy-banner"
+  ]
+}
